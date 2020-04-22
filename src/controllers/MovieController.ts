@@ -25,9 +25,10 @@ const MovieController = {
           poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
         };
       });
-      res.render('movie', { movies });
+      console.log(movies);
+      res.render('home', { movies });
     } catch (error) {
-      res.send('error ' + error.message);
+      res.render('error');
     }
   },
 };
