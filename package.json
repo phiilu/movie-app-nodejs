@@ -15,7 +15,7 @@
     "dev": "nodemon",
     "start:dev": "node --inspect --require ts-node/register --require dotenv/config src/index.ts",
     "start": "node --require dotenv/config dist/index.js",
-    "build": "./build.sh",
+    "build": "bash build.sh",
     "build:css": "npx postcss-cli src/styles/index.css -o src/public/styles/index.css"
   },
   "peerDependencies": {},

@@ -7,7 +7,7 @@ import TvController from './controllers/TvController';
 import ActorController from './controllers/ActorController';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const viewPath = path.join(__dirname, 'views');
 
 app.engine(
@@ -27,5 +27,10 @@ app.get('/tv', TvController.index);
 app.get('/actors', ActorController.index);
 
 app.listen(port, function () {
-  console.log('App is listening on port 3000!');
+  console.log(`App is listening on port ${port}!`);
+});
+
+process.on('SIGINT', function () {
+  console.log('Caught interrupt signal, exiting ...');
+  process.exit();
 });
