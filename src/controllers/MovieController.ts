@@ -1,28 +1,24 @@
 import { Request, Response } from 'express';
-import fetch from 'node-fetch';
-
-const API_KEY = process.env.TMDB_KEY;
-const BASE_URL = 'https://api.themoviedb.org/3/';
-const tmdb = {
-  movies: (): Promise<any> => {
-    return fetch(
-      `${BASE_URL}movie/popular?api_key=${API_KEY}&page=1`
-    ).then((res) => res.json());
-  },
-};
+import api from '../api';
 
 interface Movie {
   poster_path: string;
+  genre_ids: Array<object>;
 }
 
 const MovieController = {
-  index: async (_req: Request, res: Response) => {
+  index: async (req: Request, res: Response) => {
+    const genres = req.app.locals.genres;
+    console.log(genres);
     try {
-      const movieResponse = await tmdb.movies();
+      const movieResponse = await api.movies();
       const movies = movieResponse.results.map((movie: Movie) => {
         return {
           ...movie,
           poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          genres: movie.genre_ids.map(
+            (genreId) => genres.find((genre: any) => genre.id === genreId)?.name
+          ),
         };
       });
       console.log(movies);

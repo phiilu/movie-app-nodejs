@@ -3,4 +3,9 @@
         <img src="{{ poster_path }}" alt="{{ title }}" />
     </div>
     <h2 class="mt-2 text-lg text-gray-400 hover:text-gray-500">{{ title }}</h2>
+    <p>
+        {{#each genres}}
+        {{ this }}{{#unless @last}},{{/unless}}
+        {{/each}}
+    </p>
 </div>
