@@ -7,7 +7,7 @@ import TvController from './controllers/TvController';
 import ActorController from './controllers/ActorController';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const viewPath = path.join(__dirname, 'views');
 
 app.engine(

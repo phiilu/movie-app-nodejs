@@ -8,7 +8,8 @@
     "src"
   ],
   "engines": {
-    "node": "12"
+    "node": "12.16.2",
+    "npm": "6.14.2"
   },
   "scripts": {
     "dev": "nodemon",
