@@ -11,7 +11,5 @@ RUN mkdir -p /app
 WORKDIR /app
 COPY --from=build /app/dist .
 COPY --from=build /app/node_modules node_modules
-RUN ls -l
-RUN pwd
 EXPOSE 5000
 CMD ["node", "--require", "dotenv/config", "/app/index.js"]
