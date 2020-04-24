@@ -6,6 +6,7 @@ import api from './api';
 import MovieController from './controllers/MovieController';
 import TvController from './controllers/TvController';
 import ActorController from './controllers/ActorController';
+import './helpers/handlebar';
 
 const app = express();
 const port = process.env.PORT || 5000;
