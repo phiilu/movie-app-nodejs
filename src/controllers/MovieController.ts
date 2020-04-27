@@ -8,31 +8,47 @@ interface Movie {
   genre_ids: Array<object>;
 }
 
+const transformMovie = (genres: any) => (movie: Movie) => {
+  return {
+    ...movie,
+    release_date: format(new Date(movie.release_date), 'dd.MM.yyyy'),
+    poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+    genres: movie.genre_ids
+      .slice(1, 3)
+      .map(
+        (genreId) => genres.find((genre: any) => genre.id === genreId)?.name
+      ),
+  };
+};
+
 const MovieController = {
   index: async (req: Request, res: Response) => {
     const genres = req.app.locals.genres;
-    console.log(genres);
     try {
-      const movieResponse = await api.movies();
-      const movies = movieResponse.results.map((movie: Movie) => {
-        return {
-          ...movie,
-          release_date: format(new Date(movie.release_date), 'dd.MM.yyyy'),
-          poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-          genres: movie.genre_ids
-            .slice(1, 3)
-            .map(
-              (genreId) =>
-                genres.find((genre: any) => genre.id === genreId)?.name
-            ),
-        };
-      });
-      console.log(movies);
-      res.render('home', { movies });
+      const [
+        popularMoviesResponse,
+        nowPlayingMoviesResponse,
+      ] = await Promise.all([api.popularMovies(), api.nowPlayingMovies()]);
+
+      const popularMovies = popularMoviesResponse.results.map(
+        transformMovie(genres)
+      );
+
+      const nowPlayingMovies = nowPlayingMoviesResponse.results.map(
+        transformMovie(genres)
+      );
+
+      console.log(popularMovies);
+      res.render('home', { popularMovies, nowPlayingMovies });
     } catch (error) {
       console.log(error);
       res.render('error');
     }
+  },
+  show: async (req: Request, res: Response) => {
+    const movie = await api.movie(req.params.id);
+    console.log(movie);
+    res.render('movie-single', { movie });
   },
 };
 

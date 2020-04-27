@@ -37,6 +37,7 @@ app.use(async (_req, _res, next) => {
 });
 
 app.get('/', MovieController.index);
+app.get('/movies/:id', MovieController.show);
 app.get('/tv', TvController.index);
 app.get('/actors', ActorController.index);
 

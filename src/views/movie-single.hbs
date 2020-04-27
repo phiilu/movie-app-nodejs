@@ -1,0 +1,12 @@
+<div class="grid grid-cols-2">
+    <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}">
+
+    <div>
+        <h1 class="text-4xl">{{ movie.title }}</h1>
+        <small class="inline text-lg leading-loose text-gray-500">{{movie.tagline}}</small>
+
+        <p class="mt-8">
+            {{movie.overview}}
+        </p>
+    </div>
+</div>

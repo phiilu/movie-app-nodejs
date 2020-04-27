@@ -9,9 +9,19 @@ const api = {
       res.json()
     );
   },
-  movies: (): Promise<any> => {
+  popularMovies: (): Promise<any> => {
     return fetch(
       `${BASE_URL}movie/popular?api_key=${API_KEY}&page=1`
+    ).then((res) => res.json());
+  },
+  nowPlayingMovies: (): Promise<any> => {
+    return fetch(
+      `${BASE_URL}movie/now_playing?api_key=${API_KEY}&page=1`
+    ).then((res) => res.json());
+  },
+  movie: (id: string | number): Promise<any> => {
+    return fetch(
+      `${BASE_URL}movie/${id}?api_key=${API_KEY}&page=1`
     ).then((res) => res.json());
   },
 };
