@@ -21,7 +21,7 @@ const api = {
   },
   movie: (id: string | number): Promise<any> => {
     return fetch(
-      `${BASE_URL}movie/${id}?api_key=${API_KEY}&page=1`
+      `${BASE_URL}movie/${id}?api_key=${API_KEY}&page=1&append_to_response=videos,credits,genres`
     ).then((res) => res.json());
   },
 };

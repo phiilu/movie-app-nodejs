@@ -1,28 +1,58 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import format from 'date-fns/format';
 import api from '../api';
 
 interface Movie {
   release_date: string;
   poster_path: string;
+  backdrop_path: string;
   genre_ids: Array<object>;
+  genres: Array<object>;
+  videos: Videos;
+  credits: Credits;
+}
+
+interface Videos {
+  results: Array<Video>;
+}
+
+interface Video {
+  type: string;
+  key: string;
+}
+
+interface Credits {
+  cast: Array<any>;
 }
 
 const transformMovie = (genres: any) => (movie: Movie) => {
   return {
     ...movie,
     release_date: format(new Date(movie.release_date), 'dd.MM.yyyy'),
+    backdrop_path: movie.backdrop_path
+      ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+      : null,
     poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-    genres: movie.genre_ids
-      .slice(1, 3)
-      .map(
-        (genreId) => genres.find((genre: any) => genre.id === genreId)?.name
-      ),
+    genres:
+      movie.genre_ids
+        ?.slice(1, 3)
+        .map(
+          (genreId) => genres.find((genre: any) => genre.id === genreId)?.name
+        ) || movie.genres,
+    trailer:
+      movie.videos?.results.find((video) => video.type === 'Trailer')?.key ||
+      '',
+    credits: movie.credits
+      ? {
+          ...movie.credits,
+          cast: movie.credits.cast.slice(0, 5),
+        }
+      : null,
   };
 };
 
 const MovieController = {
-  index: async (req: Request, res: Response) => {
+  index: async (req: Request, res: Response, next: NextFunction) => {
     const genres = req.app.locals.genres;
     try {
       const [
@@ -37,18 +67,23 @@ const MovieController = {
       const nowPlayingMovies = nowPlayingMoviesResponse.results.map(
         transformMovie(genres)
       );
-
-      console.log(popularMovies);
       res.render('home', { popularMovies, nowPlayingMovies });
     } catch (error) {
-      console.log(error);
-      res.render('error');
+      next(error);
     }
   },
-  show: async (req: Request, res: Response) => {
-    const movie = await api.movie(req.params.id);
-    console.log(movie);
-    res.render('movie-single', { movie });
+  show: async (req: Request, res: Response, next: NextFunction) => {
+    const genres = req.app.locals.genres;
+    try {
+      const movie = await api.movie(req.params.id);
+      console.log(movie, transformMovie(genres)(movie));
+      res.render('movie-single', {
+        layout: 'movie-single.hbs',
+        movie: transformMovie(genres)(movie),
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 };
 

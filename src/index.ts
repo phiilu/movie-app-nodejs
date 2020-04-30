@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response, NextFunction, Request } from 'express';
 import path from 'path';
 import handlebars from 'express-handlebars';
 
@@ -7,6 +7,11 @@ import MovieController from './controllers/MovieController';
 import TvController from './controllers/TvController';
 import ActorController from './controllers/ActorController';
 import './helpers/handlebar';
+
+interface Error {
+  status?: number;
+  message?: string;
+}
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -40,6 +45,30 @@ app.get('/', MovieController.index);
 app.get('/movies/:id', MovieController.show);
 app.get('/tv', TvController.index);
 app.get('/actors', ActorController.index);
+
+if (app.get('env') === 'development') {
+  app.use(function (
+    err: Error,
+    _req: Request,
+    res: Response,
+    _next: NextFunction
+  ) {
+    console.log(err);
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err,
+    });
+  });
+}
+
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {},
+  });
+});
 
 app.listen(port, function () {
   console.log(`App is listening on port ${port}!`);
