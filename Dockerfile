@@ -11,5 +11,8 @@ RUN mkdir -p /app
 WORKDIR /app
 COPY --from=build /app/dist .
 COPY --from=build /app/node_modules node_modules
+
+ENV NODE_ENV production
+
 EXPOSE 5000
 CMD ["node", "--require", "dotenv/config", "/app/index.js"]
