@@ -76,7 +76,6 @@ const MovieController = {
     const genres = req.app.locals.genres;
     try {
       const movie = await api.movie(req.params.id);
-      console.log(movie, transformMovie(genres)(movie));
       res.render('movie-single', {
         layout: 'movie-single.hbs',
         movie: transformMovie(genres)(movie),

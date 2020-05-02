@@ -33,7 +33,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // fetch genres on first request and cache it
 app.use(async (_req, _res, next) => {
   const genres = app.locals.genres;
-  console.log(genres);
   if (genres?.length <= 0) {
     const genresResponse = await api.genres();
     app.locals.genres = genresResponse.genres;
@@ -45,6 +44,7 @@ app.get('/', MovieController.index);
 app.get('/movies/:id', MovieController.show);
 app.get('/tv', TvController.index);
 app.get('/actors', ActorController.index);
+app.get('/actors/:id', ActorController.show);
 
 if (app.get('env') === 'development') {
   app.use(function (

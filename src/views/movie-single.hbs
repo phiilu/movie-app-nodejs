@@ -56,11 +56,35 @@
     <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
         {{#each movie.credits.cast }}
         <div class="space-y-4">
-            <img class="rounded" src="https://image.tmdb.org/t/p/w500{{this.profile_path}}"
-                alt="{{this.name}}'s profile image">
+            <a href="/actors/{{this.id}}">
+                {{#if this.profile_path }}
+                <img loading="lazy" class="rounded" src="https://image.tmdb.org/t/p/w500{{this.profile_path}}"
+                    alt="{{this.name}}'s profile image">
+                {{else}}
+                <img loading="lazy" class="rounded"
+                    src="https://dummyimage.com/500x750/cbd5e0/1a202c.png&text=Profile+Image+Not+Found"
+                    alt="{{this.name}}'s profile image">
+                {{/if}}
+            </a>
             <h2 class="text-lg">{{this.name}}</h2>
             <small class="text-gray-400 text-md">{{this.character}}</small>
         </div>
         {{/each}}
     </div>
+
+</div>
+
+<div class="container px-4 pb-16 mx-auto">
+
+    <h1 class="text-4xl">Images</h1>
+
+    <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 md:grid-cols-3">
+        {{#each movie.images.backdrops }}
+        <div class="space-y-4">
+            <img loading="lazy" class="transition ease-in-out rounded cursor-pointer hover:opacity-75"
+                src="https://image.tmdb.org/t/p/w500{{this.file_path}}" alt="{{movie.title}}'s backdrop image">
+        </div>
+        {{/each}}
+    </div>
+
 </div>

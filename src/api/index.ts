@@ -21,7 +21,17 @@ const api = {
   },
   movie: (id: string | number): Promise<any> => {
     return fetch(
-      `${BASE_URL}movie/${id}?api_key=${API_KEY}&page=1&append_to_response=videos,credits,genres`
+      `${BASE_URL}movie/${id}?api_key=${API_KEY}&page=1&append_to_response=videos,images,credits,genres`
+    ).then((res) => res.json());
+  },
+  popularActors: (): Promise<any> => {
+    return fetch(
+      `${BASE_URL}person/popular?api_key=${API_KEY}&page=1`
+    ).then((res) => res.json());
+  },
+  actor: (id: string | number): Promise<any> => {
+    return fetch(
+      `${BASE_URL}person/${id}?api_key=${API_KEY}&page=1&append_to_response=combined_credits,external_ids`
     ).then((res) => res.json());
   },
 };

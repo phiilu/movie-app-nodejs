@@ -1,0 +1,49 @@
+<div class="flex space-x-24">
+    <div class="flex-none">
+        <img class="w-64" src="{{ actor.profile_path }}" alt="">
+    </div>
+    <div>
+        <h1 class="mt-4 text-4xl font-semibold md:mt-0">{{ actor.name }}</h1>
+        <div class="flex flex-wrap items-center text-sm text-gray-400">
+            <svg class="w-4 text-gray-400 fill-current hover:text-white" viewBox="0 0 448 512">
+                <path
+                    d="M448 384c-28.02 0-31.26-32-74.5-32-43.43 0-46.825 32-74.75 32-27.695 0-31.454-32-74.75-32-42.842 0-47.218 32-74.5 32-28.148 0-31.202-32-74.75-32-43.547 0-46.653 32-74.75 32v-80c0-26.5 21.5-48 48-48h16V112h64v144h64V112h64v144h64V112h64v144h16c26.5 0 48 21.5 48 48v80zm0 128H0v-96c43.356 0 46.767-32 74.75-32 27.951 0 31.253 32 74.75 32 42.843 0 47.217-32 74.5-32 28.148 0 31.201 32 74.75 32 43.357 0 46.767-32 74.75-32 27.488 0 31.252 32 74.5 32v96zM96 96c-17.75 0-32-14.25-32-32 0-31 32-23 32-64 12 0 32 29.5 32 56s-14.25 40-32 40zm128 0c-17.75 0-32-14.25-32-32 0-31 32-23 32-64 12 0 32 29.5 32 56s-14.25 40-32 40zm128 0c-17.75 0-32-14.25-32-32 0-31 32-23 32-64 12 0 32 29.5 32 56s-14.25 40-32 40z">
+                </path>
+            </svg>
+            <span class="ml-2">{{ actor.birthdayLine }}</span>
+            <p class="mt-8 text-lg leading-normal text-gray-300">
+                {{actor.biography}}
+            </p>
+
+            <div>
+                <h2 class="mt-12 font-semibold">Known For</h2>
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
+                    {{#each actor.knownForMovies}}
+                    <div class="mt-4">
+                        <a href="/movies/{{this.id}}"><img src="https://image.tmdb.org/t/p/w185{{this.poster_path}}"
+                                alt="poster" class="transition duration-150 ease-in-out hover:opacity-75"></a>
+                        <a href="/movies/{{this.id}}"
+                            class="block mt-1 text-sm leading-normal text-gray-400 hover:text-white">{{this.title}}</a>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="mt-16">
+    <h2 class="text-4xl font-semibold">Credits</h2>
+
+    <ul class="pl-5 mt-8 leading-loose list-disc">
+        {{#each actor.credits}}
+        <li>
+            {{this.releaseYear}} ·
+            <strong><a href="/movies/{{this.id}}" class="hover:underline">{{this.title}}</a></strong> as
+            {{this.character}}
+        </li>
+        {{/each}}
+    </ul>
+</div>
