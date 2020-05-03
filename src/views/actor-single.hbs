@@ -1,5 +1,5 @@
-<div class="flex space-x-24">
-    <div class="flex-none">
+<div class="flex flex-col space-x-24 md:flex-row">
+    <div class="flex-none m-auto">
         <img class="w-64" src="{{ actor.profile_path }}" alt="">
     </div>
     <div>
@@ -20,9 +20,9 @@
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
                     {{#each actor.knownForMovies}}
                     <div class="mt-4">
-                        <a href="/movies/{{this.id}}"><img src="https://image.tmdb.org/t/p/w185{{this.poster_path}}"
+                        <a href="{{this.link}}"><img src="https://image.tmdb.org/t/p/w185{{this.poster_path}}"
                                 alt="poster" class="transition duration-150 ease-in-out hover:opacity-75"></a>
-                        <a href="/movies/{{this.id}}"
+                        <a href="{{this.link}}"
                             class="block mt-1 text-sm leading-normal text-gray-400 hover:text-white">{{this.title}}</a>
                     </div>
                     {{/each}}
@@ -41,8 +41,7 @@
         {{#each actor.credits}}
         <li>
             {{this.releaseYear}} ·
-            <strong><a href="/movies/{{this.id}}" class="hover:underline">{{this.title}}</a></strong> as
-            {{this.character}}
+            <strong><a href="{{this.link}}" class="hover:underline">{{this.title}}</a></strong>{{this.character}}
         </li>
         {{/each}}
     </ul>

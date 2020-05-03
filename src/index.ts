@@ -1,6 +1,7 @@
 import express, { Response, NextFunction, Request } from 'express';
 import path from 'path';
 import handlebars from 'express-handlebars';
+import _ from 'lodash';
 
 import api from './api';
 import MovieController from './controllers/MovieController';
@@ -34,8 +35,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(async (_req, _res, next) => {
   const genres = app.locals.genres;
   if (genres?.length <= 0) {
-    const genresResponse = await api.genres();
-    app.locals.genres = genresResponse.genres;
+    const [movieGenre, tvGenre] = await api.genres();
+    const genres: Array<Object> = _.uniqBy(
+      [...movieGenre.genres, ...tvGenre.genres],
+      'id'
+    );
+    app.locals.genres = genres;
   }
   next();
 });
@@ -43,6 +48,7 @@ app.use(async (_req, _res, next) => {
 app.get('/', MovieController.index);
 app.get('/movies/:id', MovieController.show);
 app.get('/tv', TvController.index);
+app.get('/tv/:id', TvController.show);
 app.get('/actors', ActorController.index);
 app.get('/actors/:id', ActorController.show);
 

@@ -1,27 +1,27 @@
 <div class="relative w-full overflow-hidden md:h-screen">
     <div class="hidden h-full bg-center bg-no-repeat bg-cover md:block"
-        style="background-image: url('{{ movie.backdrop_path}}'); filter: blur(8px); -webkit-filter: blur(8px);"></div>
+        style="background-image: url('{{ tv.backdrop_path}}'); filter: blur(8px); -webkit-filter: blur(8px);"></div>
 
     <div class="w-full h-full bg-transparent md:absolute md:top-0 md:bottom-0 md:left-0 md:right-0 md:z-10 "
         style="background-color: rgba(0,0,0, 0.7);">
 
         <div class="container grid grid-cols-1 gap-4 px-4 py-16 mx-auto md:grid-cols-2">
-            <img class="m-auto" loading="lazy" src="{{ movie.poster_path }}" alt="{{ movie.title }}">
+            <img class="m-auto" loading="lazy" src="{{ tv.poster_path }}" alt="{{ tv.title }}">
             <div>
                 <div class="space-y-2">
-                    <h1 class="text-4xl">{{ movie.title }}</h1>
-                    <small class="inline-block text-lg tracking-wider text-gray-500">{{movie.tagline}}</small>
+                    <h1 class="text-4xl">{{ tv.title }}</h1>
+                    <small class="inline-block text-lg tracking-wider text-gray-500">{{tv.status}}</small>
                     <div class="grid space-x-2 text-gray-400 md:flex" style="grid-template-columns: auto 1fr;">
                         <div class="w-10">
-                            {{> rating rating=movie.vote_average direction='row'}}
+                            {{> rating rating=tv.vote_average direction='row'}}
                         </div>
                         <span class="hidden md:block">|</span>
                         <span>
-                            {{ movie.release_date }}
+                            {{ tv.release_date }}
                         </span>
                         <span class="hidden md:block">|</span>
                         <span style='grid-column: 1 / -1;'>
-                            {{#each movie.genres}}
+                            {{#each tv.genres}}
                             {{this.name}}{{#unless @last}},{{/unless}}
                             {{/each}}
                         </span>
@@ -31,14 +31,14 @@
 
 
                 <p class="mt-8 text-gray-300">
-                    {{movie.overview}}
+                    {{tv.overview}}
                 </p>
 
                 <div class="mt-8 space-y-4">
                     <h2 class="text-lg font-bold uppercase ">Trailer</h2>
                     <div class="youtube">
                         <iframe id="ytplayer" type="text/html" width="640" height="360"
-                            src="https://www.youtube.com/embed/{{movie.trailer}}?autoplay=0" frameborder="0"></iframe>
+                            src="https://www.youtube.com/embed/{{tv.trailer}}?autoplay=0" frameborder="0"></iframe>
                     </div>
 
 
@@ -54,7 +54,7 @@
     <h1 class="text-4xl">Cast</h1>
 
     <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-        {{#each movie.credits.cast }}
+        {{#each tv.credits.cast }}
         <div class="space-y-4">
             <a href="/actors/{{this.id}}">
                 {{#if this.profile_path }}
@@ -79,10 +79,10 @@
     <h1 class="text-4xl">Images</h1>
 
     <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 md:grid-cols-3">
-        {{#each movie.images.backdrops }}
+        {{#each tv.images.backdrops }}
         <div class="space-y-4">
             <img loading="lazy" class="transition ease-in-out rounded cursor-pointer hover:opacity-75"
-                src="https://image.tmdb.org/t/p/w500{{this.file_path}}" alt="{{movie.title}}'s backdrop image">
+                src="https://image.tmdb.org/t/p/w500{{this.file_path}}" alt="{{tv.title}}'s backdrop image">
         </div>
         {{/each}}
     </div>

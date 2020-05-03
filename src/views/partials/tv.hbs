@@ -1,0 +1,19 @@
+<div class="mt-8 space-y-2">
+    <a href="/tv/{{ id }}">
+        <h2 title='{{ name }}' class="text-xl text-gray-600 truncate hover:text-gray-500">{{ name }}</h2>
+    </a>
+    <a href="/tv/{{ id }}">
+        <img src="{{ poster_path }}" alt="{{ name }}" />
+    </a>
+    <div class="grid items-center h-16" style="grid-template-columns: 1fr 2fr;">
+        {{> rating rating=vote_average}}
+        <div>
+            <p class="text-lg leading-relaxed text-gray-400 ">{{ release_date }}</p>
+            <p class="text-sm text-gray-400">
+                {{#each genres}}
+                {{ this }}{{#unless @last}},{{/unless}}
+                {{/each}}
+            </p>
+        </div>
+    </div>
+</div>

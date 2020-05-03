@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import api from '../api';
 import format from 'date-fns/format';
 import differenceInYears from 'date-fns/differenceInYears';
+import _ from 'lodash';
+import api from '../api';
 
 interface Actor {
   profile_path: string;
@@ -27,7 +28,9 @@ interface Cast {
   title?: string;
   name?: string;
   release_date: string;
+  first_air_date?: string;
   character: string;
+  media_type: string;
 }
 
 const transformActor = (actor: Actor) => {
@@ -58,30 +61,50 @@ const transformSingleActor = (actor: Actor) => {
 };
 
 function getKnownForMovies(cast: Array<Cast>) {
-  const copyCast = Array.from(cast);
+  const copyCast = Array.from(_.uniqBy(cast, 'id'));
   copyCast.sort((c1, c2) => c2.popularity - c1.popularity);
   return copyCast.slice(0, 5).map((c) => ({
     id: c.id,
     title: c.title || c.name,
     poster_path: c.poster_path,
     popularity: c.popularity,
+    link: c.media_type === 'movie' ? `/movies/${c.id}` : `/tv/${c.id}`,
   }));
 }
 
 function getCredits(cast: Array<Cast>) {
-  const copyCast = Array.from(cast);
+  const copyCast = Array.from(_.uniqBy(cast, 'id'))
+    .map((c: Cast) => {
+      if (c.first_air_date) {
+        return {
+          ...c,
+          release_date: c.first_air_date,
+        };
+      }
+      return c;
+    })
+    .filter((c: Cast) => {
+      return (
+        c.release_date !== undefined &&
+        c.release_date !== null &&
+        c.release_date !== ''
+      );
+    });
+
   copyCast.sort(
     (c1, c2) =>
       new Date(c2.release_date).getTime() - new Date(c1.release_date).getTime()
   );
+
   return copyCast.map((c) => {
     return {
       id: c.id,
       title: c.title || c.name,
-      character: c.character,
+      character: c.character ? ` as ${c.character} ` : '',
       releaseYear: c.release_date
         ? new Date(c.release_date).getFullYear()
         : 'Unknown',
+      link: c.media_type === 'movie' ? `/movies/${c.id}` : `/tv/${c.id}`,
     };
   });
 }
