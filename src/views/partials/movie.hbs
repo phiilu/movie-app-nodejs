@@ -3,7 +3,7 @@
         <h2 title='{{ title }}' class="text-xl text-gray-600 truncate hover:text-gray-500">{{ title }}</h2>
     </a>
     <a href="/movies/{{ id }}">
-        <img src="{{ poster_path }}" alt="{{ title }}" />
+        <img class="rounded" src="{{ poster_path }}" alt="{{ title }}" />
     </a>
     <div class="grid items-center h-16" style="grid-template-columns: 1fr 2fr;">
         {{> rating rating=vote_average}}
