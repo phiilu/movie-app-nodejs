@@ -3,6 +3,7 @@ import format from 'date-fns/format';
 import differenceInYears from 'date-fns/differenceInYears';
 import _ from 'lodash';
 import api from '../api';
+import DataCache from '../util/DataCache';
 
 interface Actor {
   profile_path: string;
@@ -109,14 +110,17 @@ function getCredits(cast: Array<Cast>) {
   });
 }
 
+const actorsCache = new DataCache(api.popularActors, false, 10);
+const actorCache = new DataCache(api.actor, true);
+
 const ActorController = {
   index: async (_req: Request, res: Response) => {
-    const actorsResponse = await api.popularActors();
+    const actorsResponse = await actorsCache.getData();
     res.render('actor', { actors: actorsResponse.results.map(transformActor) });
   },
   show: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const actor = await api.actor(req.params.id);
+      const actor = await actorCache.getData(req.params.id);
       res.render('actor-single', {
         actor: transformSingleActor(actor),
       });

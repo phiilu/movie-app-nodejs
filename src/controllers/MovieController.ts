@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import format from 'date-fns/format';
 import api from '../api';
+import DataCache from '../util/DataCache';
 
 interface Movie {
   release_date: string;
@@ -51,6 +52,10 @@ const transformMovie = (genres: any) => (movie: Movie) => {
   };
 };
 
+const popularMoviesCache = new DataCache(api.popularMovies, false, 10);
+const nowPlayingMoviesCache = new DataCache(api.nowPlayingMovies, false, 10);
+const movieCache = new DataCache(api.movie);
+
 const MovieController = {
   index: async (req: Request, res: Response, next: NextFunction) => {
     const genres = req.app.locals.genres;
@@ -58,24 +63,28 @@ const MovieController = {
       const [
         popularMoviesResponse,
         nowPlayingMoviesResponse,
-      ] = await Promise.all([api.popularMovies(), api.nowPlayingMovies()]);
+      ] = await Promise.all([
+        popularMoviesCache.getData(),
+        nowPlayingMoviesCache.getData(),
+      ]);
 
       const popularMovies = popularMoviesResponse.results.map(
         transformMovie(genres)
       );
-
       const nowPlayingMovies = nowPlayingMoviesResponse.results.map(
         transformMovie(genres)
       );
+
       res.render('home', { popularMovies, nowPlayingMovies });
     } catch (error) {
       next(error);
     }
   },
   show: async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
     const genres = req.app.locals.genres;
     try {
-      const movie = await api.movie(req.params.id);
+      const movie = await movieCache.getData(id);
       res.render('movie-single', {
         layout: 'movie-single.hbs',
         movie: transformMovie(genres)(movie),

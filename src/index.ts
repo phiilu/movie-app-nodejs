@@ -19,6 +19,7 @@ const port = process.env.PORT || 5000;
 const viewPath = path.join(__dirname, 'views');
 
 app.locals.genres = [];
+app.locals.movies = {};
 
 app.engine(
   'hbs',

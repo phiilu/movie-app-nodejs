@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import format from 'date-fns/format';
 import api from '../api';
+import DataCache from '../util/DataCache';
 
 interface TV {
   name: string;
@@ -47,12 +48,16 @@ const transformSingleTv = (tv: TV) => {
   };
 };
 
+const popularTvCache = new DataCache(api.popularTv, false, 10);
+const topRatedTvCache = new DataCache(api.topRatedTv, false, 10);
+const tvCache = new DataCache(api.tv);
+
 const TvController = {
   index: async (req: Request, res: Response) => {
     const genres = req.app.locals.genres;
     const [popularTvResponse, topRatedTvResponse] = await Promise.all([
-      api.popularTv(),
-      api.topRatedTv(),
+      popularTvCache.getData(),
+      topRatedTvCache.getData(),
     ]);
     const popularTv = popularTvResponse.results.map(transformTv(genres));
     const topRatedTv = topRatedTvResponse.results.map(transformTv(genres));
@@ -60,7 +65,7 @@ const TvController = {
   },
   show: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const tvResponse = await api.tv(req.params.id);
+      const tvResponse = await tvCache.getData(req.params.id);
       res.render('tv-single', {
         layout: 'movie-single',
         tv: transformSingleTv(tvResponse),
