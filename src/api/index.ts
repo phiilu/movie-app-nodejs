@@ -54,6 +54,11 @@ const api = {
       `${BASE_URL}person/${id}?api_key=${API_KEY}&page=1&append_to_response=combined_credits,external_ids`
     ).then((res) => res.json());
   },
+  search: (term: string): Promise<any> => {
+    return fetch(
+      `${BASE_URL}search/multi?api_key=${API_KEY}&include_adult=true&query=${term}`
+    ).then((res) => res.json());
+  },
 };
 
 export default api;

@@ -24,6 +24,40 @@
                     <a href="/actors" class="hover:text-gray-300">Actors</a>
                 </li>
             </ul>
+            <div class="relative mt-3 md:mt-0" x-data="search()" x-init="init()" @click.away="isOpen = false">
+                <div class="absolute top-0">
+                    <svg class="w-4 mt-2 ml-2 text-gray-400 fill-current" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <input x-model.debounce.250="term" x-ref="search" @focus="isOpen = true"
+                    @keydown.window="slashFocus($event)" @keydown="isOpen = true" @keydown.shift.tab="isOpen = false"
+                    @keydown.escape.window="isOpen = false" x-on:search="handleClear($event)" type="search"
+                    class="w-64 px-4 py-1 pl-8 text-sm bg-gray-800 rounded-full focus:outline-none focus:shadow-outline"
+                    placeholder="Search" />
+                <div class="absolute z-50 w-64 mt-4 text-sm bg-gray-800 rounded" x-show="isOpen">
+                    <ul>
+                        <template x-for="(movie, index) in movies">
+                            <li>
+                                <a class="flex items-center block px-3 py-3 text-lg transition duration-150 ease-in-out hover:bg-gray-700"
+                                    x-bind:href="movie.link"
+                                    @keydown.tab="index === movies.length - 1 ? isOpen = false : null">
+                                    <img class="w-8" x-bind:src="movie.image" x-bind:alt='movie.title || movie.name'>
+                                    <span class="ml-4" x-text="movie.title || movie.name"></span>
+                                </a>
+                            </li>
+                        </template>
+                        <li x-show="dirty && movies.length <= 0">
+                            <a
+                                class="flex items-center block px-3 py-3 transition duration-150 ease-in-out hover:bg-gray-700">
+                                No results found for "<span x-text='term'></span>"
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
 </header>

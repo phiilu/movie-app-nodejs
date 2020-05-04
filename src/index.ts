@@ -7,6 +7,7 @@ import api from './api';
 import MovieController from './controllers/MovieController';
 import TvController from './controllers/TvController';
 import ActorController from './controllers/ActorController';
+import SearchController from './controllers/SearchController';
 import './helpers/handlebar';
 
 interface Error {
@@ -51,6 +52,7 @@ app.get('/tv', TvController.index);
 app.get('/tv/:id', TvController.show);
 app.get('/actors', ActorController.index);
 app.get('/actors/:id', ActorController.show);
+app.get('/search', SearchController.search);
 
 if (app.get('env') === 'development') {
   app.use(function (
