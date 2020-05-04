@@ -6,6 +6,8 @@ import api from '../api';
 import DataCache from '../util/DataCache';
 
 interface Actor {
+  name: string;
+  biography: string;
   profile_path: string;
   known_for: Array<KnownFor>;
   birthday: string;
@@ -116,13 +118,24 @@ const actorCache = new DataCache(api.actor, true);
 const ActorController = {
   index: async (_req: Request, res: Response) => {
     const actorsResponse = await actorsCache.getData();
-    res.render('actor', { actors: actorsResponse.results.map(transformActor) });
+    res.render('actor', {
+      actors: actorsResponse.results.map(transformActor),
+      meta: {
+        title: 'Actors',
+      },
+    });
   },
   show: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const actor = await actorCache.getData(req.params.id);
+      const actorResponse = await actorCache.getData(req.params.id);
+      const actor = transformSingleActor(actorResponse);
       res.render('actor-single', {
-        actor: transformSingleActor(actor),
+        actor,
+        meta: {
+          title: actor.name,
+          description: actor.biography,
+          image: actor.profile_path,
+        },
       });
     } catch (error) {
       next(error);

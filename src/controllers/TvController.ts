@@ -5,6 +5,7 @@ import DataCache from '../util/DataCache';
 
 interface TV {
   name: string;
+  overview: string;
   first_air_date: string;
   poster_path: string;
   backdrop_path: string;
@@ -61,14 +62,26 @@ const TvController = {
     ]);
     const popularTv = popularTvResponse.results.map(transformTv(genres));
     const topRatedTv = topRatedTvResponse.results.map(transformTv(genres));
-    res.render('tv', { popularTv, topRatedTv });
+    res.render('tv', {
+      popularTv,
+      topRatedTv,
+      meta: {
+        title: 'TV Shows',
+      },
+    });
   },
   show: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const tvResponse = await tvCache.getData(req.params.id);
+      const tv = transformSingleTv(tvResponse);
       res.render('tv-single', {
         layout: 'movie-single',
-        tv: transformSingleTv(tvResponse),
+        tv,
+        meta: {
+          title: tv.title,
+          description: tv.overview,
+          image: tv.poster_path,
+        },
       });
     } catch (error) {
       next(error);

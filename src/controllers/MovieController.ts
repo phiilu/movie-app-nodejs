@@ -4,6 +4,8 @@ import api from '../api';
 import DataCache from '../util/DataCache';
 
 interface Movie {
+  title: string;
+  overview: string;
   release_date: string;
   poster_path: string;
   backdrop_path: string;
@@ -75,7 +77,13 @@ const MovieController = {
         transformMovie(genres)
       );
 
-      res.render('home', { popularMovies, nowPlayingMovies });
+      res.render('home', {
+        popularMovies,
+        nowPlayingMovies,
+        meta: {
+          title: 'Movies',
+        },
+      });
     } catch (error) {
       next(error);
     }
@@ -84,10 +92,16 @@ const MovieController = {
     const { id } = req.params;
     const genres = req.app.locals.genres;
     try {
-      const movie = await movieCache.getData(id);
+      const m = await movieCache.getData(id);
+      const movie = transformMovie(genres)(m);
       res.render('movie-single', {
         layout: 'movie-single.hbs',
-        movie: transformMovie(genres)(movie),
+        movie,
+        meta: {
+          title: movie.title,
+          description: movie.overview,
+          image: movie.poster_path,
+        },
       });
     } catch (error) {
       next(error);

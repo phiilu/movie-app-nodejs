@@ -1,0 +1,21 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{{#if meta.title }}
+<title>{{meta.title}} | PHIFLIX</title>
+<meta property="og:title" content="{{meta.title}} | PHIFLIX" />
+{{else}}
+<title>PHIFLIX</title>
+{{/if}}
+
+{{#if meta.description }}
+<meta name="description" content="{{meta.description}}">
+{{else}}
+<meta name="description"
+    content="PHIFLIX is a NETFLIX clone written in Node.js using express.js and the TMDB API. It can show popular movies, TV shows and actors. PHIFLIX is short for Phiilu's NETFLIX.">
+{{/if}}
+
+{{#if meta.image }}
+<meta property="og:image" content="{{meta.image}}" />
+{{else}}
+<meta property="og:image" content="/" />
+{{/if}}
