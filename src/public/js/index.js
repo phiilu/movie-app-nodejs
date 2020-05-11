@@ -4,9 +4,6 @@ function search() {
         isOpen: false,
         movies: [],
         dirty: false,
-        init() {
-            this.$watch('term', () => this.doSearch())
-        },
         doSearch() {
             if (!this.term) {
                 this.dirty = false
