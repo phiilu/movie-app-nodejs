@@ -2,8 +2,8 @@
     <a href="/tv/{{ id }}">
         <h2 title='{{ name }}' class="text-xl text-gray-600 truncate hover:text-gray-500">{{ shortTitle }}</h2>
     </a>
-    <a href="/tv/{{ id }}" class="block w-48 sm:w-full sm:h-full">
-        <img class="object-contain w-full h-full rounded" src="{{ poster_path }}" alt="{{ name }}" />
+    <a href="/tv/{{ id }}" class="block w-48 sm:w-auto sm:h-auto">
+        <img class="object-contain w-full rounded" src="{{ poster_path }}" alt="{{ name }}" />
     </a>
     <div class="grid items-center h-16" style="grid-template-columns: 1fr 2fr;">
         {{> rating rating=vote_average}}

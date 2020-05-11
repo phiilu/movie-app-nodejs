@@ -3,8 +3,8 @@
         <h2 title='{{ title }}' class="text-xl text-center text-gray-600 truncate hover:text-gray-500 sm:text-left">
             {{ shortTitle }}</h2>
     </a>
-    <a href="/movies/{{ id }}" class="block w-48 sm:w-full sm:h-full">
-        <img class="object-contain w-full h-full rounded" src="{{ poster_path }}" alt="{{ title }}" />
+    <a href="/movies/{{ id }}" class="block w-48 sm:w-auto sm:h-auto">
+        <img class="object-contain w-full rounded" src="{{ poster_path }}" alt="{{ title }}" />
     </a>
     <div class="grid items-center h-16" style="grid-template-columns: 1fr 2fr;">
         {{> rating rating=vote_average}}
