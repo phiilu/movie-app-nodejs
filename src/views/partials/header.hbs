@@ -1,27 +1,29 @@
 <header>
     <nav class="border-b border-gray-800">
         <div class="container flex flex-col items-center justify-between px-4 py-6 mx-auto md:flex-row">
-            <ul class="flex flex-col items-center md:flex-row">
-                <li>
-                    <a href="/" class="flex items-center space-x-2">
-                        <svg class="w-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2a2 2 0 100-4V6z">
-                            </path>
-                        </svg>
-                        <span class="text-2xl font-bold tracking-wide uppercase">
-                            Phiflix
-                        </span>
-                    </a>
-                </li>
+            <a href="/" class="flex items-center space-x-2">
+                <svg class="w-8" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2a2 2 0 100-4V6z">
+                    </path>
+                </svg>
+                <span class="text-2xl font-bold tracking-wide uppercase">
+                    Phiflix
+                </span>
+            </a>
+            <ul class="flex items-center flex-1 space-x-4 text-sm">
                 <li class="mt-3 md:ml-16 md:mt-0">
-                    <a href="/" class="hover:text-gray-300">Movies</a>
+                    <a href="/"
+                        class="tracking-wide uppercase hover:text-gray-300 {{#if active.movie}}font-bold text-orange-500{{/if}}">Movies</a>
                 </li>
                 <li class="mt-3 md:ml-6 md:mt-0">
-                    <a href="/tv" class="hover:text-gray-300">TV Shows</a>
+                    <a href="/tv"
+                        class="tracking-wide uppercase hover:text-gray-300 {{#if active.tv}}font-bold text-orange-500{{/if}}">TV
+                        Shows</a>
                 </li>
                 <li class="mt-3 md:ml-6 md:mt-0">
-                    <a href="/actors" class="hover:text-gray-300">Actors</a>
+                    <a href="/actors"
+                        class="tracking-wide uppercase hover:text-gray-300 {{#if active.actor}}font-bold text-orange-500{{/if}}">Actors</a>
                 </li>
             </ul>
             <div class="relative mt-3 md:mt-0" x-data="search()" x-init="init()" @click.away="isOpen = false">

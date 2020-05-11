@@ -120,6 +120,9 @@ const ActorController = {
     const actorsResponse = await actorsCache.getData();
     res.render('actor', {
       actors: actorsResponse.results.map(transformActor),
+      active: {
+        actor: true,
+      },
       meta: {
         title: 'Actors',
       },
@@ -131,6 +134,9 @@ const ActorController = {
       const actor = transformSingleActor(actorResponse);
       res.render('actor-single', {
         actor,
+        active: {
+          actor: true,
+        },
         meta: {
           title: actor.name,
           description: actor.biography,

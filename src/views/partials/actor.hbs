@@ -1,11 +1,11 @@
-<div class="mt-8 space-y-2">
+<div class="mt-8 space-y-2{{#if @last}} pr-8{{/if}}">
     <a href="/actors/{{ id }}">
         <h2 title='{{ name }}' class="text-xl text-gray-600 truncate hover:text-gray-500">{{ name }}</h2>
     </a>
-    <a href="/actors/{{ id }}">
-        <img class="rounded" src="{{ profile_path }}" alt="{{ name }}" />
+    <a href="/actors/{{ id }}" class="block w-48 sm:w-full sm:h-full">
+        <img class="object-contain w-full h-full rounded" src="{{ profile_path }}" alt="{{ name }}" />
     </a>
-    <div class="text-sm text-gray-400 truncate">
+    <div class="text-sm text-gray-400 truncate" style="white-space: inherit;">
         {{#each known_for}}
         {{ this }}{{#unless @last}},{{/unless}}
         {{/each}}

@@ -26,6 +26,8 @@ interface Video {
 const transformTv = (genres: any) => (tv: TV) => {
   return {
     ...tv,
+    shortTitle:
+      tv.name.length > 20 ? tv.name.substring(0, 20) + '...' : tv.name,
     release_date: format(new Date(tv.first_air_date), 'dd.MM.yyyy'),
     poster_path: `https://image.tmdb.org/t/p/w500${tv.poster_path}`,
     genres:
@@ -41,6 +43,8 @@ const transformSingleTv = (tv: TV) => {
   return {
     ...tv,
     title: tv.name,
+    shortTitle:
+      tv.name.length > 20 ? tv.name.substring(0, 20) + '...' : tv.name,
     release_date: format(new Date(tv.first_air_date), 'dd.MM.yyyy'),
     backdrop_path: `https://image.tmdb.org/t/p/original${tv.backdrop_path}`,
     poster_path: `https://image.tmdb.org/t/p/w500${tv.poster_path}`,
@@ -65,6 +69,9 @@ const TvController = {
     res.render('tv', {
       popularTv,
       topRatedTv,
+      active: {
+        tv: true,
+      },
       meta: {
         title: 'TV Shows',
       },
@@ -77,6 +84,9 @@ const TvController = {
       res.render('tv-single', {
         layout: 'movie-single',
         tv,
+        active: {
+          tv: true,
+        },
         meta: {
           title: tv.title,
           description: tv.overview,

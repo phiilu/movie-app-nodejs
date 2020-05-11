@@ -31,6 +31,10 @@ interface Credits {
 const transformMovie = (genres: any) => (movie: Movie) => {
   return {
     ...movie,
+    shortTitle:
+      movie.title.length > 20
+        ? movie.title.substring(0, 20) + '...'
+        : movie.title,
     release_date: format(new Date(movie.release_date), 'dd.MM.yyyy'),
     backdrop_path: movie.backdrop_path
       ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
@@ -80,6 +84,9 @@ const MovieController = {
       res.render('home', {
         popularMovies,
         nowPlayingMovies,
+        active: {
+          movie: true,
+        },
         meta: {
           title: 'Movies',
         },
@@ -97,6 +104,9 @@ const MovieController = {
       res.render('movie-single', {
         layout: 'movie-single.hbs',
         movie,
+        active: {
+          movie: true,
+        },
         meta: {
           title: movie.title,
           description: movie.overview,
