@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="overflow-x-hidden">
+<html lang="en">
 
 <head>
     {{> meta }}
@@ -9,10 +9,9 @@
     <script src="/js/index.js"></script>
 </head>
 
-<body class="grid min-h-screen overflow-x-hidden font-sans text-white bg-gray-900"
-    style="grid-template-rows: auto 1fr auto;">
+<body class="grid min-h-screen font-sans text-white bg-gray-900" style="grid-template-rows: auto 1fr auto;">
     {{> header }}
-    <main class="container py-16 pt-48 mx-auto overflow-x-hidden md:pt-32 sm:px-4">
+    <main class="container py-16 pt-48 mx-auto md:pt-32 sm:px-4">
         {{{body}}}
     </main>
     {{> footer }}

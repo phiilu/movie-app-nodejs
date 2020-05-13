@@ -1,6 +1,6 @@
 <h1 class="px-4 text-lg font-semibold tracking-wider text-orange-500 uppercase sm:px-0">Popular Movies</h1>
 <div
-  class="flex p-4 space-x-8 overflow-x-scroll scrolling-touch sm:p-0 sm:overflow-hidden sm:grid sm:gap-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 sm:space-x-0">
+  class="flex w-screen p-4 space-x-8 overflow-x-scroll scrolling-touch sm:p-0 sm:overflow-hidden sm:grid sm:gap-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 sm:space-x-0 md:w-full">
   {{#each popularMovies}}
   {{> movie }}
   {{/each}}
@@ -8,7 +8,7 @@
 
 <h1 class="px-4 mt-20 text-lg font-semibold tracking-wider text-orange-500 uppercase sm:px-0">Now Playing Movies</h1>
 <div
-  class="flex p-4 space-x-8 overflow-x-scroll scrolling-touch sm:p-0 sm:overflow-hidden sm:grid sm:gap-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 sm:space-x-0">
+  class="flex w-screen p-4 space-x-8 overflow-x-scroll scrolling-touch sm:p-0 sm:overflow-hidden sm:grid sm:gap-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 sm:space-x-0 md:w-full">
   {{#each nowPlayingMovies}}
   {{> movie }}
   {{/each}}
