@@ -1,5 +1,5 @@
-<header>
-    <nav class="border-b border-gray-800">
+<header class="absolute top-0 left-0 right-0 z-20 ">
+    <nav class="shadow-lg">
         <div class="container flex flex-col items-center justify-between px-4 py-6 mx-auto md:flex-row">
             <a href="/" class="flex items-center space-x-2">
                 <svg class="w-8" fill="currentColor" viewBox="0 0 20 20">
@@ -37,7 +37,7 @@
                 <input x-model.debounce.250="term" x-ref="search" @focus="isOpen = true"
                     @keydown.window="slashFocus($event)" @keydown="isOpen = true" @keydown.shift.tab="isOpen = false"
                     @keydown.escape.window="isOpen = false" x-on:search="handleClear($event)" type="search"
-                    class="w-64 px-4 py-1 pl-8 text-sm bg-gray-800 rounded-full focus:outline-none focus:shadow-outline"
+                    class="w-64 px-4 py-1 pl-8 text-sm {{#if single}}bg-gray-800 md:bg-transparent{{else}}bg-gray-800{{/if}} rounded-full focus:outline-none focus:shadow-outline"
                     placeholder="Search" />
                 <div class="absolute z-50 w-64 mt-4 text-sm bg-gray-800 rounded" x-show="isOpen">
                     <ul>

@@ -1,3 +1,14 @@
+window.addEventListener('load', () => {
+    const $single = document.getElementById('single');
+    const $singleHeader = document.getElementById('single-header');
+
+    if($single) {
+        $single.style.height = $singleHeader.offsetHeight + "px";
+    }
+})
+
+
+
 function search() {
     return {
         term: '',

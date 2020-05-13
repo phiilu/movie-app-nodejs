@@ -1,12 +1,11 @@
-<div class="relative w-full overflow-hidden md:h-screen">
+<div id='single' class="relative w-full overflow-hidden duration-500 ease-in-out transition-height md:h-screen">
     <div class="hidden h-full bg-center bg-no-repeat bg-cover md:block"
         style="background-image: url('{{ movie.backdrop_path}}'); filter: blur(8px); -webkit-filter: blur(8px);"></div>
-
-    <div class="w-full h-full bg-transparent md:absolute md:top-0 md:bottom-0 md:left-0 md:right-0 md:z-10 "
-        style="background-color: rgba(0,0,0, 0.7);">
-
-        <div class="container grid grid-cols-1 gap-4 px-4 py-16 mx-auto md:grid-cols-2">
-            <img class="m-auto" loading="lazy" src="{{ movie.poster_path }}" alt="{{ movie.title }}">
+    <div
+        class="w-full h-full bg-gray-900 md:bg-transparent md:absolute md:top-0 md:bottom-0 md:left-0 md:right-0 md:z-10 bg-overlay">
+        <div id='single-header'
+            class="container grid grid-cols-1 gap-8 px-4 py-16 pt-48 mx-auto md:pt-32 md:grid-cols-2">
+            <img class="w-64 m-auto md:w-auto" loading="lazy" src="{{ movie.poster_path }}" alt="{{ movie.title }}">
             <div>
                 <div class="space-y-2">
                     <h1 class="text-4xl">{{ movie.title }}</h1>
@@ -55,11 +54,11 @@
 
     <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
         {{#each movie.credits.cast }}
-        <div class="space-y-4">
+        <div class="mx-auto space-y-4">
             <a href="/actors/{{this.id}}">
                 {{#if this.profile_path }}
-                <img loading="lazy" class="rounded" src="https://image.tmdb.org/t/p/w500{{this.profile_path}}"
-                    alt="{{this.name}}'s profile image">
+                <img loading="lazy" class="w-64 rounded md:w-full"
+                    src="https://image.tmdb.org/t/p/w500{{this.profile_path}}" alt="{{this.name}}'s profile image">
                 {{else}}
                 <img loading="lazy" class="rounded"
                     src="https://dummyimage.com/500x750/cbd5e0/1a202c.png&text=Profile+Image+Not+Found"

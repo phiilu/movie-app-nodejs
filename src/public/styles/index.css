@@ -18962,6 +18962,14 @@ video {
   transition-property: transform;
 }
 
+.transition-height {
+  transition-property: height;
+}
+
+.transition-spacing {
+  transition-property: margin, padding;
+}
+
 .ease-linear {
   transition-timing-function: linear;
 }
@@ -19040,6 +19048,12 @@ video {
 
 .delay-1000 {
   transition-delay: 1000ms;
+}
+
+@media (min-width: 768px) {
+  .bg-overlay {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
 }
 
 @media (min-width: 640px) {
@@ -37380,6 +37394,14 @@ video {
 
   .sm\:transition-transform {
     transition-property: transform;
+  }
+
+  .sm\:transition-height {
+    transition-property: height;
+  }
+
+  .sm\:transition-spacing {
+    transition-property: margin, padding;
   }
 
   .sm\:ease-linear {
@@ -55803,6 +55825,14 @@ video {
     transition-property: transform;
   }
 
+  .md\:transition-height {
+    transition-property: height;
+  }
+
+  .md\:transition-spacing {
+    transition-property: margin, padding;
+  }
+
   .md\:ease-linear {
     transition-timing-function: linear;
   }
@@ -74224,6 +74254,14 @@ video {
     transition-property: transform;
   }
 
+  .lg\:transition-height {
+    transition-property: height;
+  }
+
+  .lg\:transition-spacing {
+    transition-property: margin, padding;
+  }
+
   .lg\:ease-linear {
     transition-timing-function: linear;
   }
@@ -92643,6 +92681,14 @@ video {
 
   .xl\:transition-transform {
     transition-property: transform;
+  }
+
+  .xl\:transition-height {
+    transition-property: height;
+  }
+
+  .xl\:transition-spacing {
+    transition-property: margin, padding;
   }
 
   .xl\:ease-linear {

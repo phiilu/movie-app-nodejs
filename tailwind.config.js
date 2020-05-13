@@ -4,7 +4,12 @@ module.exports = {
     './src/**/*.hbs',
   ],
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+       'height': 'height',
+       'spacing': 'margin, padding',
+      }
+    }
   },
   variants: {},
   plugins: [],
