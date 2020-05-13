@@ -34,9 +34,9 @@
                             clip-rule="evenodd" fill-rule="evenodd"></path>
                     </svg>
                 </div>
-                <input x-model.debounce.250="term" x-ref="search" @focus="isOpen = true"
-                    @keydown.window="slashFocus($event)" @keydown="isOpen = true" @keydown.shift.tab="isOpen = false"
-                    @keydown.escape.window="isOpen = false" x-on:search="handleClear($event)" type="search"
+                <input x-model="term" x-ref="search" @focus="isOpen = true" @keydown.window="slashFocus($event)"
+                    @keydown="isOpen = true" @keydown.shift.tab="isOpen = false" @keydown.escape.window="isOpen = false"
+                    x-on:input.debounce="doSearch()" x-on:search="handleClear($event)" type="search"
                     class="w-64 px-4 py-1 pl-8 text-sm {{#if single}}bg-gray-800 md:bg-transparent{{else}}bg-gray-800{{/if}} rounded-full focus:outline-none focus:shadow-outline"
                     placeholder="Search" />
                 <div class="absolute z-50 w-64 mt-4 text-sm bg-gray-800 rounded" x-show="isOpen">
