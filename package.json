@@ -64,7 +64,7 @@
     "express-handlebars": "^4.0.4",
     "handlebars": "^4.7.6",
     "lodash": "^4.17.15",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "tailwindcss": "^1.4.4",
     "tslib": "^1.11.1",
     "typescript": "^3.8.3"
