@@ -16,7 +16,7 @@
     "start:dev": "node --inspect --require ts-node/register --require dotenv/config src/index.ts",
     "start": "node --require dotenv/config dist/index.js",
     "build": "bash build.sh",
-    "build:css": "npx postcss-cli src/styles/index.css -o src/public/styles/index.css"
+    "build:css": "postcss src/styles/index.css -o src/public/styles/index.css"
   },
   "peerDependencies": {},
   "prettier": {
@@ -42,11 +42,14 @@
   "name": "nodejs",
   "author": "Florian Kapfenberger",
   "devDependencies": {
+    "autoprefixer": "^10.0.2",
     "cross-env": "^7.0.2",
     "eslint": "^7.14.0",
     "eslint-plugin-import": "^2.22.1",
     "husky": "^4.3.0",
     "nodemon": "^2.0.6",
+    "postcss": "^8.1.9",
+    "postcss-cli": "^8.3.0",
     "ts-node": "^9.0.0"
   },
   "dependencies": {
