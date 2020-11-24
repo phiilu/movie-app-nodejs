@@ -1,6 +1,6 @@
 # Movie App - PHIFLIX
 
-https://movies.nodejs.kapfenberger.me/
+https://nodejs.phiflix.com
 
 ## Stack
 
