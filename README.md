@@ -1,6 +1,6 @@
-# Movie App - PHIFLIX
+# DEPRECATED - Movie App - PHIFLIX
 
-https://nodejs.phiflix.com
+Sorry this project is no longer deployed.
 
 ## Stack
 
@@ -12,5 +12,3 @@ https://nodejs.phiflix.com
 ## Hosted
 
 - Dokku (self hosted)
-
-> Part of the **1 App, 5 different stacks** project.
